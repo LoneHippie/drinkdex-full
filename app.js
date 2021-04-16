@@ -4,8 +4,8 @@ const rateLimit = require('express-rate-limit');
 // const helmet = require('helmet'); //disabled for static serve
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-const hpp = require('hpp');
 const morgan = require('morgan');
+const compression = require('compression');
 const cors = require('cors');
 
 const cookieParser = require('cookie-parser');
@@ -71,10 +71,8 @@ app.use(mongoSanitize());
 //data santization against XSS (cross site scripting attacks)
 app.use(xss());
 
-//prevent param pollution
-app.use(hpp({
-    whitelist: ['duration', 'ratingsQuality', 'ratingsAverage', 'maxGroupSize', 'difficulty', 'price']
-}));
+//compresses text sent to client
+app.use(compression());
 
 //////////ROUTERS
 
