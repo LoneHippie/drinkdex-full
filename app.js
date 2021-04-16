@@ -7,7 +7,6 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const morgan = require('morgan');
 const cors = require('cors');
-const path = require('path');
 
 const cookieParser = require('cookie-parser');
 
