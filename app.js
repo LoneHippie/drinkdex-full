@@ -30,8 +30,12 @@ app.use('/images', express.static('images'));
 //Security HTTP headers
 // app.use(helmet());
 
+app.enable('trust proxy');
+
 //cors for proxy use
 app.use(cors());
+//preflight proxy
+app.options('*', cors());
 
 //dev/prod options toggle
 if (process.env.NODE_ENV === 'development') {
