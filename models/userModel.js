@@ -74,6 +74,7 @@ userSchema.pre('save', function(next) {
 
 //see if this works
 userSchema.pre('save', async function(next) {
+    //filters out null values before saving
     this.savedDrinks = this.savedDrinks.filter(drink => drink);
     const drinksPromises = this.savedDrinks.map(async id => await Drink.findById(id));
     this.savedDrinks = await Promise.all(drinksPromises);
