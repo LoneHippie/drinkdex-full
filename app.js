@@ -1,7 +1,6 @@
 const express = require('express');
 
 const rateLimit = require('express-rate-limit');
-// const helmet = require('helmet'); //disabled for static serve
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const morgan = require('morgan');
@@ -26,15 +25,15 @@ const app = express();
 //lets static files be accessed through images/ of uploads/ in frontend
 app.use('/images', express.static('images'));
 
-//Security HTTP headers
-// app.use(helmet());
-
+//allow proxy of api
 app.enable('trust proxy');
-
 //cors for proxy use
 app.use(cors());
 //preflight proxy
 app.options('*', cors());
+
+//get cookies
+app.use(cookieParser());
 
 //dev/prod options toggle
 if (process.env.NODE_ENV === 'development') {
@@ -49,9 +48,6 @@ const limiter = rateLimit({ //limits req per IP to 100 per hour
 });
 //apply limiter to all routes that start with /api
 app.use('/api', limiter);
-
-//get cookies
-app.use(cookieParser());
 
 //will log cookies in dev mode
 app.use((req, res, next) => {
