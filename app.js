@@ -6,9 +6,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const morgan = require('morgan');
 const compression = require('compression');
-const cors = require('cors');
-
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const AppError = require('./utilities/appError');
 const globalErrorHandler = require('./controllers/errorController');
