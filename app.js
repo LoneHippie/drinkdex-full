@@ -27,10 +27,16 @@ app.use('/images', express.static('images'));
 
 //allow proxy of api
 app.enable('trust proxy');
+
 //cors for proxy use
-app.use(cors());
+const corsOptions = {
+    origin: 'http://drinkdex-v1.herokuapp.com',
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 //preflight proxy
-app.options('*', cors());
+app.options('*', cors(corsOptions));
 
 //get cookies
 app.use(cookieParser());
