@@ -28,7 +28,7 @@ app.use('/images', express.static('images'));
 //allow proxy of api
 app.enable('trust proxy');
 
-//cors for proxy use
+//cors options for production
 const corsOptions = {
     origin: 'https://drinkdex-v1.herokuapp.com',
     credentials: true,
@@ -49,7 +49,8 @@ app.use(cookieParser());
 //dev/prod options toggle
 if (process.env.NODE_ENV === 'development') {
     console.log('App started in dev mode');
-    app.use(morgan('dev')); //3rd party npm package for logging route, status code, ms for callback and size in bytes
+    //3rd party npm package for logging route, status code, ms for callback and size in bytes
+    app.use(morgan('dev'));
 };
 
 //limit reqs from unique IPs
@@ -88,7 +89,7 @@ app.use('/api/v1/drinks', drinkRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/images', imageRouter);
 
-//static deployment
+//static deployment from build folder
 const root = require('path').join(__dirname, 'build');
 app.use(express.static(root));
 app.get("*", (req, res) => {
