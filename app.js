@@ -30,19 +30,25 @@ app.enable('trust proxy');
 
 //cors for proxy use
 const corsOptions = {
-    origin: 'http://drinkdex-v1.herokuapp.com',
+    origin: 'https://drinkdex-v1.herokuapp.com',
     credentials: true,
     optionsSuccessStatus: 200
 };
-app.use(cors(corsOptions));
-//preflight proxy
-app.options('*', cors(corsOptions));
+
+if (process.env.NODE_ENV === 'development') {
+    app.use(cors());
+    app.options('*', cors());
+} else {
+    app.use(cors(corsOptions));
+    app.options('*', cors(corsOptions));
+};
 
 //get cookies
 app.use(cookieParser());
 
 //dev/prod options toggle
 if (process.env.NODE_ENV === 'development') {
+    console.log('App started in dev mode');
     app.use(morgan('dev')); //3rd party npm package for logging route, status code, ms for callback and size in bytes
 };
 
