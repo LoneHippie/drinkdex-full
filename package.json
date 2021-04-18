@@ -1,7 +1,7 @@
 {
   "name": "drinkdex",
   "version": "1.0.0",
-  "description": "",
+  "description": "full stack MERN web app for cocktail recipe sharing",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
